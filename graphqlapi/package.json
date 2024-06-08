@@ -15,16 +15,20 @@
     "@apollo/subgraph": "^2.8.0",
     "@graphql-tools/merge": "^9.0.4",
     "@graphql-tools/schema": "^10.0.4",
+    "@prisma/adapter-pg": "^5.15.0",
+    "@prisma/client": "^5.14.0",
     "apollo-server": "^3.13.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
+    "graphql-type-json": "^0.3.2",
     "lodash": "^4.17.21",
-    "zod": "^3.23.8"
+    "pg": "^8.12.0"
   },
   "type": "module",
   "devDependencies": {
-    "nodemon": "^3.1.2"
+    "nodemon": "^3.1.2",
+    "prisma": "^5.14.0"
   }
 }

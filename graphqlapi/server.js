@@ -2,10 +2,14 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { resolvers } from "./resolvers/index.js";
 import { typeDefs } from "./loadSchema.js";
+import GraphQLJSON from "graphql-type-json";
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: {
+    JSON: GraphQLJSON,
+    ...resolvers,
+  },
 });
 
 const { url } = await startStandaloneServer(server, {

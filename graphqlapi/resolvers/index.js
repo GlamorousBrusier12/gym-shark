@@ -1,29 +1,26 @@
-const books = [
-  {
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
+import _ from "lodash";
+import db from "../prisma/client.js";
 
-// Resolvers define how to fetch the types defined in your schema.
-// This resolver retrieves books from the "books" array above.
 export const resolvers = {
   Query: {
-    books: () => {
-      return books;
+    getAllUsers: async () => {
+      const allUsers = await db.user.findMany();
+      return allUsers;
     },
   },
-  Mutation: {
-    addBook: (parentArgs, { input }, ctx) => {
-      books.push({
-        title: input.title,
-        author: input.author,
-      });
-      return true;
-    },
+  Mutation: {},
+  User: {
+    id: ({ id }) => id,
+    email: ({ email }) => email,
+    name: ({ name }) => name,
+    username: ({ username }) => username,
+    logo: ({ logo }) => logo,
+    is_deleted: ({ is_deleted }) => is_deleted,
+    deleted_by: ({ deleted_by }) => (deleted_by ? deleted_by : null),
+    created_at: ({ created_at }) => created_at,
+    created_by: ({ created_by }) => (created_by ? created_by : null),
+    updated_at: ({ updated_at }) => updated_at,
+    updated_by: ({ updated_by }) => (updated_by ? updated_by : null),
+    metadata: ({ metadata }) => metadata,
   },
 };

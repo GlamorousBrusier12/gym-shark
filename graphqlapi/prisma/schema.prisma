@@ -8,18 +8,117 @@ datasource db {
   url      = "postgresql://naveenkumar:password123@localhost:5432/gymshark?schema=public"
 }
 
-model user {
-  id         Int       @id @default(autoincrement())
-  email      String    @unique
+model exercise {
+  id             Int       @id
+  name           String?
+  target_muscles String?
+  type           String?
+  is_deleted     Boolean?
+  created_at     DateTime? @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model exercise_map_exercise_property {
+  id             Int?
+  fk_exercise_id Int?
+  fk_property_id Int?
+  is_deleted     Boolean?
+  created_at     DateTime? @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+
+  @@index([fk_exercise_id, fk_property_id], map: "uniqe_fk_exercise_id_fk_property_id")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model exercise_property {
+  id         Int?
   name       String?
-  username   String?   @unique
+  value_type String?
+  is_deleted Boolean?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model exercise_set {
+  id             Int?
+  set_number     Int?
+  fk_workout_id  Int?
+  fk_exercise_id Int?
+  value          Int?
+  rpe            Int?
+  type           exercise_set_type?
+  is_deleted     Boolean?
+  created_at     DateTime?          @db.Timestamp(6)
+  updated_at     DateTime?          @db.Timestamp(6)
+  deleted_at     DateTime?          @db.Timestamp(6)
+
+  @@index([set_number, fk_exercise_id, fk_workout_id], map: "unique_set_number_fk_exercise_id_fk_workout_id")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model map_exercise_workout {
+  id             Int?
+  fk_workout_id  Int?
+  fk_exercise_id Int?
+  number_of_sets Int?
+  is_deleted     Boolean?
+  created_at     DateTime? @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+
+  @@index([fk_exercise_id, fk_workout_id], map: "unique_fk_exercise_id_fk_workout_id")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model map_set_exercise_property {
+  id                      Int?
+  fk_set_id               Int?
+  fk_exercise_property_id Int?
+  is_deleted              Boolean?
+  created_at              DateTime? @db.Timestamp(6)
+  updated_at              DateTime? @db.Timestamp(6)
+  deleted_at              DateTime? @db.Timestamp(6)
+
+  @@ignore
+}
+
+model user {
+  id         Int       @id
+  username   String?   @db.VarChar
+  email      String?
   password   String?
   logo       String?
-  is_deleted Boolean?  @default(false)
-  deleted_by Int?
   created_at DateTime? @db.Timestamp(6)
-  created_by Int?
-  updated_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_by Int?
-  metadata   Json?
+  updated_at DateTime? @db.Timestamp(6)
+  is_deleted Boolean?
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+model workout {
+  id           Int       @id
+  name         String?
+  duration     String?
+  total_weight Int?
+  fk_user_id   Int?
+  is_deleted   Boolean?
+  created_at   DateTime? @db.Timestamp(6)
+  updated_at   DateTime? @db.Timestamp(6)
+  deleted_at   DateTime? @db.Timestamp(6)
+}
+
+enum exercise_set_type {
+  normal
+  failure
+  drop_set @map("drop-set")
+  warm_up  @map("warm-up")
 }

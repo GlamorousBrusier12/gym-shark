@@ -7,6 +7,11 @@ export const resolvers = {
       const allUsers = await db.user.findMany();
       return allUsers;
     },
+    getAllExercises: async () => {
+      const exercises = await db.exercise.findMany({});
+
+      return exercises;
+    },
   },
   Mutation: {},
   User: {
@@ -22,5 +27,13 @@ export const resolvers = {
     updated_at: ({ updated_at }) => updated_at,
     updated_by: ({ updated_by }) => (updated_by ? updated_by : null),
     metadata: ({ metadata }) => metadata,
+  },
+  Exercise: {
+    id: ({ id }) => id,
+    name: ({ name }) => name,
+    targetMuscles: ({ target_muscles }) => JSON.parse(target_muscles),
+    type: ({ type }) => type,
+    images: ({ image_url }) => JSON.parse(image_url),
+    videos: ({ video_url }) => JSON.parse(video_url),
   },
 };

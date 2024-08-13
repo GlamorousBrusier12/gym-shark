@@ -3,6 +3,16 @@ scalar JSON
 
 type Query {
   getAllUsers: [User!]
+  getAllExercises: [Exercise]
+}
+
+type Exercise {
+  id: ID!
+  name: String
+  targetMuscles: [String!]!
+  type: String
+  images: [String!]
+  videos: [String!]
 }
 
 type User {

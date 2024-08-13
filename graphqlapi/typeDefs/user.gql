@@ -1,18 +1,7 @@
-#graphql
-scalar JSON
-
-type Query {
-  getAllUsers: [User!]
-  getAllExercises: [Exercise]
-}
-
-type Exercise {
-  id: ID!
-  name: String
-  targetMuscles: [String!]!
-  type: String
-  images: [String!]
-  videos: [String!]
+input AddUserInput {
+  username: String
+  password: String!
+  email: String!
 }
 
 type User {

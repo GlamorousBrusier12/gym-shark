@@ -1,0 +1,16 @@
+#graphql
+scalar JSON
+
+type Query {
+  #user
+  getAllUsers: [User!]
+
+  #exercise
+  getAllExercises: [Exercise]
+}
+type Mutation {
+  #user
+  addUser(input: AddUserInput): User
+
+  #exercise
+}

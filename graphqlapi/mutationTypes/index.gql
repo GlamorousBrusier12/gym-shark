@@ -1,8 +1,0 @@
-type Mutation {
-  addBook(input: AddBookInput!): Boolean
-}
-
-input AddBookInput {
-  author: String!
-  title: String!
-}

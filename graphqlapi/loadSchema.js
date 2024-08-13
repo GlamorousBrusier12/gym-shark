@@ -19,9 +19,6 @@ const loadSchemaFiles = (directory) => {
   return schemas;
 };
 
-const querySchemas = loadSchemaFiles(path.join(__dirname, "./queryTypes"));
-const mutationSchemas = loadSchemaFiles(
-  path.join(__dirname, "./mutationTypes")
-);
+const schema = loadSchemaFiles(path.join(__dirname, "./typeDefs"));
 
-export const typeDefs = mergeTypeDefs([...querySchemas, ...mutationSchemas]);
+export const typeDefs = mergeTypeDefs([...schema]);

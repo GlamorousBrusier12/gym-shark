@@ -1,0 +1,8 @@
+type Exercise {
+  id: ID!
+  name: String
+  targetMuscles: [String!]!
+  type: String
+  images: [String!]
+  videos: [String!]
+}

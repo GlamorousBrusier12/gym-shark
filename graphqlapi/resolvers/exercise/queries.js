@@ -1,8 +1,8 @@
-import db from "../../prisma/client.js";
+import { getAllExercises } from "../../controllers/exercise.js";
 
 const exerciseQueries = {
   getAllExercises: async () => {
-    const exercises = await db.exercise.findMany({});
+    const exercises = await getAllExercises();
     return exercises;
   },
 };

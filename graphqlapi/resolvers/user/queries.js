@@ -1,8 +1,9 @@
-import db from "../../prisma/client.js";
+import { getUsers } from "../../controllers/user.js";
 
 const userQueries = {
-  getAllUsers: () => {
-    return db.user.findMany();
+  getAllUsers: async () => {
+    const users = await getUsers();
+    return users;
   },
 };
 

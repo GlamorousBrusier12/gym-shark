@@ -10,7 +10,12 @@ type Query {
 }
 type Mutation {
   #user
-  addUser(input: AddUserInput): User
+  addUser(input: AddUserInput): AddUserResponse!
 
   #exercise
+}
+
+interface MutationResponse {
+  isSuccess: Boolean!
+  error: JSON
 }

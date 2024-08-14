@@ -30,7 +30,7 @@ model exercise_map_exercise_property {
   updated_at     DateTime? @db.Timestamp(6)
   deleted_at     DateTime? @db.Timestamp(6)
 
-  @@index([fk_exercise_id, fk_property_id], map: "uniqe_fk_exercise_id_fk_property_id")
+  @@unique([fk_exercise_id, fk_property_id], map: "unique_fk_exercise_id_fk_property_id")
 }
 
 model exercise_property {
@@ -56,7 +56,7 @@ model exercise_set {
   updated_at     DateTime? @db.Timestamp(6)
   deleted_at     DateTime? @db.Timestamp(6)
 
-  @@index([set_number, fk_exercise_id, fk_workout_id], map: "unique_set_number_fk_exercise_id_fk_workout_id")
+  @@unique([set_number, fk_exercise_id, fk_workout_id], map: "unique_set_number_fk_exercise_id_fk_workout_id")
 }
 
 model map_exercise_workout {
@@ -69,7 +69,7 @@ model map_exercise_workout {
   updated_at     DateTime? @db.Timestamp(6)
   deleted_at     DateTime? @db.Timestamp(6)
 
-  @@index([fk_exercise_id, fk_workout_id], map: "unique_fk_exercise_id_fk_workout_id")
+  @@unique([fk_exercise_id, fk_workout_id], map: "unique_fk_exercise_id_fk_workout_id")
 }
 
 model map_set_exercise_property {
@@ -85,7 +85,7 @@ model map_set_exercise_property {
 model user {
   id         Int       @id @default(autoincrement())
   username   String?   @db.VarChar
-  email      String?
+  email      String?   @unique(map: "unique_user_email")
   password   String?
   logo       String?
   created_at DateTime? @db.Timestamp(6)
